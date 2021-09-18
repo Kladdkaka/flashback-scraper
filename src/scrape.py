@@ -79,9 +79,9 @@ def scrape_thread_page(thread_id: int, page_id: int, headers: dict) -> List[dict
         user_title = e.find('div', class_='post-user-title').text.strip()
         avatar_url = None
 
-        avatar_e = e.find('div', class_='post-user-avatar')
+        avatar_e = e.find('a', class_='post-user-avatar').find('img')
         if avatar_e is not None:
-            avatar_url = avatar_e.find('img').attrs['src']
+            avatar_url = avatar_e.attrs['src']
 
         user_info = e.find('div', class_='post-user-info').get_text().strip()  # text?
 
