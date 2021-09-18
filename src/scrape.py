@@ -1,4 +1,5 @@
 import sys
+import time
 from typing import List
 
 import typer
@@ -12,7 +13,7 @@ app = typer.Typer()
 
 
 @app.command()
-def thread(thread_id: int, output_path: str = None, user_agent: str = None):
+def thread(thread_id: int, output_path: str = None, user_agent: str = None, sleep_ms: float = 0.5):
     typer.echo(f"scrape thread: {thread_id}")
 
     scraped_pages = set()
@@ -58,6 +59,8 @@ def thread(thread_id: int, output_path: str = None, user_agent: str = None):
             scraped_posts.add(post['post_id'])
 
         scraped_pages.add(page_id)
+
+        time.sleep(sleep_ms)
 
     if handle is not sys.stdout:
         handle.close()
